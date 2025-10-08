@@ -6,7 +6,8 @@
 
 ## Overview
 
-This project visualizes and forecasts key climate indicators using real data from [ClimateChangeTracker.org](https://climatechangetracker.org).  
+This project visualizes and forecasts key climate indicators using real data.  
+
 It combines machine learning (**Python**) with interactive data visualization (**Chart.js**) to provide insight into both **historical** and **projected** climate trends.
 
 ---
