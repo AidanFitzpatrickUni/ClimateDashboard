@@ -19,7 +19,6 @@ It combines machine learning (**Python**) with interactive data visualization (*
 ### Interactive Dashboard
 - Real-time visualizations with **Chart.js**
 - Clear distinction between **observed data** and **AI predictions**
-- Seamless integration between Flask API and frontend charts
 
 ---
 
@@ -34,7 +33,7 @@ All datasets are retrieved directly from **[ClimateChangeTracker.org](https://cl
 | Layer | Tools |
 |-------|--------|
 | **Frontend** | HTML5, CSS3, JavaScript, Chart.js |
-| **Backend** | Python, Flask, Flask-CORS |
+| **Backend** | Python, Flask |
 | **Database** | SQLite3 |
 | **Visualization** | Chart.js |
 
@@ -43,5 +42,5 @@ All datasets are retrieved directly from **[ClimateChangeTracker.org](https://cl
 ## How to works
 - Data Upload: CSVs are imported into SQLite tables.
 - Model Training: ML models learn patterns from historical data.
-- Prediction Generation: Future values (e.g., 2025–2050) are computed.
+- Prediction Generation: Future values (e.g., 2026–2050) are computed.
 - Frontend: Chart.js visualizes both as continuous interactive lines.
