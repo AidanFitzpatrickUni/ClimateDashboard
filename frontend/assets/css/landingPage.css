@@ -1,0 +1,14 @@
+#newsFeed {
+    background-color:tomato;
+}
+
+#localWeather {
+    background-color:aquamarine
+}
+
+.container {
+    width:30%;
+    height:500px;
+    font-size: 20px;
+    display: inline-block;
+}
