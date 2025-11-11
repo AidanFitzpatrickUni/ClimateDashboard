@@ -1,28 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home Page</title>
-        <link rel="stylesheet" href="assets\css\landingPage.css">
+        <link rel="stylesheet" href="assets\css\index.css">
     </head>
-    <header>
-        
-    </header>
     <body>
-        <h1> Welcome to the Climate Dashboard </h1>
-        <p>lorem ipsum shit</p>
-        <div class="container" id="newsFeed">
-             <h2>News Feed</h2>
-             <p>waa waa wee waa</p>
-        </div>
-        <div class="container" id="localWeather">
-            <h2>Local Weather</h2>
-            <p>diaster</p>
-        </div>
+        <header>
+            <div class="header">
+                <img src="assets\img\logo.png" alt="logo" class="logo" style="width:50px;height:50px;"/>
+                <a class="title">Climate Change Dashboard</a>
+                <div class="navbar">
+                    <ul>
+                        <li><a class="active" href="#home">Home</a></li>
+                        <li><a href="#charts">Charts</a></li>
+                        <li><a href="#insights">Insights</a></li>
+                    </ul>
+                </div>
+            </div> 
+        </header>
 
+        <section class ="welcome">
+            <h1> Welcome</h1>
+            <p>This website is a dashboard about the effects of climate change. <br>
+                It is a tool that can be used to see the changes in the environment over many years through different charts. <br>
+                Potential future readings of atmospheric change can also be predicted through advanced AI models.
+            </p>
+        </section>
         
-        
+        <main class="content">
+            <div class="main-left">
+                <div class="heading-box">
+                    <h3>News</h3>
+                </div>
+                <div class="info-box large"></div>
+                <div class="heading-box">
+                    <h3>Local Statistics</h3>
+                </div>
+                <div class ="info-box large"></div>
+            </div>
+        </main>
+
+        <footer class="contact">
+            <div class="contact-text">
+                <h3>Contact Us</h3>
+                <p> Address: Earth<br>
+                    Telephone: 0000000000<br>
+                    Opening Hours: 00:00 - 24:00
+                </p>
+            </div>
+            <img src="assets/img/earth.jpg" alt="Location of Company">
+        </footer>
     </body>
-    <footer>
-
-    </footer>
 </html>
