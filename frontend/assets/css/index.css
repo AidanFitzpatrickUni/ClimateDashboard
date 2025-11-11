@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* Navigation */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #f0f0f0;
+  border-bottom: 2px solid #ccc;
+}
+
+.navbar {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  border: 1px solid #bbb;
+  background-color: #ddd;
+}
+
+ul li {
+  float: left;
+  border-right: 2px solid #ccc
+}
+
+ul li:last-child {
+  border-right: none;
+}
+
+ul li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  background-color: #ccc;
+}
+
+.title {
+  margin-left: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Welcome section */
+.welcome {
+  padding: 20px 40px;
+  border-bottom: 1px solid #ddd;
+}
+
+.welcome h1 {
+  margin-bottom: 10px;
+}
+
+/* Main layout */
+.content {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+  padding: 15px 40px;
+}
+
+/* Left content */
+.main-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-box {
+  background: #ddd;
+  height: 200px;
+  border: 1px solid #bbb;
+  overflow: auto;
+  white-space: nowrap;
+  width: 90vw;
+}
+
+.info-box.block {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+.info-box.large {
+  height: 250px;
+}
+
+/* News section */
+.heading-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #f9f9f9;
+}
+
+/* Sidebar */
+.sidebar {
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  padding: 10px;
+}
+
+/* Contact footer */
+.contact {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-top: 2px solid #ccc;
+  background: #f7f7f7;
+}
+
+.contact-text {
+  flex: 2;
+  margin-right: 20px;
+}
+
+.contact-text p {
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+.contact img {
+  background: #ddd;
+  height: 150px;
+  border: 1px solid #bbb;
+}
