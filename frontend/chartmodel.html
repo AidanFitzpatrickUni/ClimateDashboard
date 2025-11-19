@@ -1,93 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Climate Change Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Climate Change Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets\css\index.css">
+  </head>
+  <body>
+    <header>
+      <div class="header">
+          <img src="assets\img\logo.png" alt="logo" class="logo" style="width:50px;height:50px;"/>
+          <a class="title">Climate Change Dashboard</a>
+          <div class="navbar">
+              <ul>
+                  <li><a class="active" href="/frontend/index.html">Home</a></li>
+                  <li><a href="/frontend/chartmodel.html">Charts</a></li>
+                  <li><a href="/frontend/adminPanel.html">Admin</a></li>
+              </ul>
+          </div>
+      </div> 
+    </header>
+
+    <div class="chart-grid">
+      <div class="chart-container"><canvas id="chart1"></canvas></div>
+      <div class="chart-container"><canvas id="chart2"></canvas></div>
+      <div class="chart-container"><canvas id="chart3"></canvas></div>
+      <div class="chart-container"><canvas id="chart4"></canvas></div>
+      <div class="chart-container"><canvas id="chart5"></canvas></div>
+      <div class="chart-container"><canvas id="chart6"></canvas></div>
+      <div class="chart-container"><canvas id="chart7"></canvas></div>
+      <div class="chart-container"><canvas id="chart8"></canvas></div>
+      <div class="chart-container"><canvas id="chart9"></canvas></div>
+    </div>
+
+    <footer class="footer">
+      <h1>© 2025 Climate Change Dashboard</h1>
+    </footer>
+  </body>
+
+  <script>
+    function createChart(canvasId, chartType, chartData, label) {
+      new Chart(document.getElementById(canvasId), {
+        type: chartType,
+        data: {
+          labels: chartData.labels,
+          datasets: [{
+            label: label,
+            data: chartData.values,
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: true } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
     }
 
-    .chart-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    // PLACEHOLDERS, REPLACE WITH ML MODELS
+    const datasets = [
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [10, 20, 30] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [5, 25, 15] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [0, 100, 150] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [3, 4, 4] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [0, 1, 0] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [35, 45, 56] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [2, 5, 9] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [60, 123, 167] },
+      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [15, 16, 12] },
+    ];
+
+
+    for (let i = 0; i < 9; i++) {
+      const data = datasets[i % datasets.length];
+      createChart(`chart${i+1}`, 'line', data, `Model ${i+1}`);
     }
-
-    .chart-container {
-      background: #fff;
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    }
-
-    canvas {
-      width: 100%;
-      height: 250px;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>Climate Change Dashboard</h1>
-
-  <div class="chart-grid">
-    <div class="chart-container"><canvas id="chart1"></canvas></div>
-    <div class="chart-container"><canvas id="chart2"></canvas></div>
-    <div class="chart-container"><canvas id="chart3"></canvas></div>
-    <div class="chart-container"><canvas id="chart4"></canvas></div>
-    <div class="chart-container"><canvas id="chart5"></canvas></div>
-    <div class="chart-container"><canvas id="chart6"></canvas></div>
-    <div class="chart-container"><canvas id="chart7"></canvas></div>
-    <div class="chart-container"><canvas id="chart8"></canvas></div>
-    <div class="chart-container"><canvas id="chart9"></canvas></div>
-  </div>
-
-<script>
-  function createChart(canvasId, chartType, chartData, label) {
-    new Chart(document.getElementById(canvasId), {
-      type: chartType,
-      data: {
-        labels: chartData.labels,
-        datasets: [{
-          label: label,
-          data: chartData.values,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true } },
-        scales: { y: { beginAtZero: true } }
-      }
-    });
-  }
-
-  // PLACEHOLDERS, REPLACE WITH ML MODELS
-  const datasets = [
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [10, 20, 30] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [5, 25, 15] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [0, 100, 150] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [3, 4, 4] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [0, 1, 0] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [35, 45, 56] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [2, 5, 9] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [60, 123, 167] },
-    { labels: ['Value 1', 'Value 2', 'Value 3'], values: [15, 16, 12] },
-  ];
-
-
-  for (let i = 0; i < 9; i++) {
-    const data = datasets[i % datasets.length];
-    createChart(`chart${i+1}`, 'line', data, `Model ${i+1}`);
-  }
-</script>
-
-</body>
+  </script>
 </html>

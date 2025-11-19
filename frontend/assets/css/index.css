@@ -1,75 +1,77 @@
+/* Base */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
 }
 
-/* Navigation */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  background: #0D0221;
+}
+
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   padding: 15px 40px;
-  background: #f0f0f0;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #26408B;
+  background: #0F084B;
 }
 
+header .title {
+  margin-left: 20px;
+  font-size: 1.6em;
+  color: #f0f0f0;
+}
+
+/* Navbar */
 .navbar {
   margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
 }
 
 .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
   display: flex;
-  border: 1px solid #bbb;
-  background-color: #ddd;
-}
-
-ul li {
-  float: left;
-  border-right: 2px solid #ccc
-}
-
-ul li:last-child {
-  border-right: none;
-}
-
-ul li a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-ul li a:hover {
-  background-color: #ccc;
-}
-
-.title {
-  margin-left: 5px;
-  font-size: 1.2em;
+  list-style: none;
+  background: #DCAB6B;
+  border: 2px solid #B1740F;
+  border-radius: 5px;
   font-weight: bold;
 }
 
-/* Welcome section */
+.navbar li {
+  border-right: 2px solid #B1740F;
+}
+
+.navbar li:last-child {
+  border-right: none;
+}
+
+.navbar a {
+  display: block;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.navbar a:hover {
+  background: #B1740F;
+}
+
+/* Welcome Section */
 .welcome {
   padding: 20px 40px;
-  border-bottom: 1px solid #ddd;
+  color: white;
 }
 
 .welcome h1 {
   margin-bottom: 10px;
 }
 
-/* Main layout */
+/* Content Layout */
 .content {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -77,69 +79,114 @@ ul li a:hover {
   padding: 15px 40px;
 }
 
-/* Left content */
 .main-left {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
+/* Info Boxes */
 .info-box {
-  background: #ddd;
+  background: #0F084B;
+  border: 2px solid #26408B;
   height: 200px;
-  border: 1px solid #bbb;
+  width: 90vw;
   overflow: auto;
   white-space: nowrap;
-  width: 90vw;
-}
-
-.info-box.block {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
 }
 
 .info-box.large {
   height: 250px;
 }
 
-/* News section */
-.heading-box {
-  border: 1px solid #ccc;
-  padding: 10px;
-  background: #f9f9f9;
-}
-
-/* Sidebar */
+.heading-box,
 .sidebar {
-  border: 1px solid #ccc;
-  background: #f9f9f9;
+  border: 2px solid #26408B;
+  background: #0F084B;
+  padding: 10px;
+  color: #f0f0f0;
+}
+
+/* Footer */
+.footer {
+  border-top: 2px solid #26408B;
+  background: #0F084B;
+  margin-top: 60px;
   padding: 10px;
 }
 
-/* Contact footer */
-.contact {
+.footer h1 {
+  text-align: center;
+  font-size: 0.9em;
+  color: #f0f0f0;
+}
+
+/* Main Section Buttons */
+main {
+  padding: 40px;
+  text-align: center;
+}
+
+.buttons {
   display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  border-top: 2px solid #ccc;
-  background: #f7f7f7;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 50px;
 }
 
-.contact-text {
-  flex: 2;
-  margin-right: 20px;
+button,
+.update-btn {
+  background: #DCAB6B;
+  border: 2px solid #B1740F;
+  padding: 12px 20px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.contact-text p {
-  margin-top: 5px;
-  line-height: 1.5;
+button:hover,
+.update-btn:hover {
+  background: #B1740F;
 }
 
-.contact img {
-  background: #ddd;
-  height: 150px;
-  border: 1px solid #bbb;
+.update-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Upload Box */
+.upload-box {
+  width: 250px;
+  height: 180px;
+  border: 2px dashed #B1740F;
+  background: #DCAB6B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+/* Charts */
+.chart-grid {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.chart-container {
+  background: #DCAB6B;
+  border: 2px dotted #B1740F;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+  width: 100%;
+  height: 250px;
 }

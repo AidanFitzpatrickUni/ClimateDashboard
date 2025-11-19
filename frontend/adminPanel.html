@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Climate Dashboard Admin Panel</title>
-	<link rel="stylesheet" href="assets\css\adminPanel.css">
-</head>
-<body>
-	<header>
-		<div class="menu-icon">☰</div> <!-- Change it later-->
-		<h1>Climate Dashboard Admin Panel</h1>
-	</header>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Climate Dashboard Admin Panel</title>
+		<link rel="stylesheet" href="assets\css\index.css">
+	</head>
+	<body>
+		<header>
+			<div class="header">
+				<img src="assets\img\logo.png" alt="logo" class="logo" style="width:50px;height:50px;"/>
+				<a class="title">Climate Change Dashboard</a>
+				<div class="navbar">
+					<ul>
+						<li><a class="active" href="/frontend/index.html">Home</a></li>
+						<li><a href="/frontend/chartmodel.html">Charts</a></li>
+						<li><a href="/frontend/adminPanel.html">Admin</a></li>
+					</ul>
+				</div>
+			</div> 
+		</header>
 
-	<main>
-		<div class="buttons"> <!-- Add functionality later-->
-			<button>Read Database</button>
-			<button>Site Details</button>
-			<button>Database Connection<br>(Success/Fail)<!-- Change it later--></button>
-			<button>API Details</button>
+		<main>
+			<div class="buttons"> <!-- Add functionality later-->
+				<button>Read Database</button>
+				<button>Site Details</button>
+				<button>Database Connection<br>(Success/Fail)<!-- Change it later--></button>
+				<button>API Details</button>
+			</div>
+
+			<div class="update-section"> <!-- No js, add it later-->
+				<button class="update-btn">Update Data</button>
+			<div class="upload-box">
+			<p>Drag & Drop Data</p>
 		</div>
+			</div>
+		</main>
 
-		<div class="update-section"> <!-- No js, add it later-->
-			<button class="update-btn">Update Data</button>
-		<div class="upload-box">
-        <p>Drag & Drop Data</p>
-      </div>
-		</div>
-	</main>
-
-	<footer class="footer">
-		<p>© 2025 Climate Change Dashboard</p> <!-- Just an example of footer--><!-- Change it later-->
-	</footer>
-</body>
+		<footer class="footer">
+			<h1>© 2025 Climate Change Dashboard</h1>
+		</footer>
+	</body>
 </html>
