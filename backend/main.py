@@ -16,13 +16,9 @@ from backend.model.temprature_model import (
 
 
 if __name__ == "__main__":
-    # Resolve dataset locations relative to repository root
-    main_path = r"backend\data\temp.csv"
-    co2_path = r"backend\data\co2_concentration.csv"
-
-    # Ingest historical temperature and CO₂ observations
-    main_df = load_main(main_path)
-    co2_df = load_co2(co2_path)
+    # Ingest historical temperature and CO₂ observations directly from SQLite
+    main_df = load_main()
+    co2_df = load_co2()
     data = merge_datasets(main_df, co2_df)
 
     # Reserve earlier years for training and keep recent periods for holdout checks

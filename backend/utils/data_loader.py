@@ -1,35 +1,48 @@
 """
-Utility helpers for ingesting CSV files and preparing merged climate datasets.
+Utility helpers for ingesting historical data from the SQLite datastore and
+preparing merged climate datasets.
 """
+
+from pathlib import Path
+import sqlite3
 
 import pandas as pd
 import numpy as np
 
+_DB_PATH = Path(__file__).resolve().parents[1] / "data" / "climate.db"
 
-def load_csv(path: str, columns: list = None, rename: dict = None) -> pd.DataFrame:
+
+def set_db_path(path: str | Path) -> None:
     """
-    Basic CSV loader that supports optional column selection and renaming.
+    Allow tests/scripts to override the default database location.
     """
-    df = pd.read_csv(path, comment="#")
-    if columns:
-        df = df[columns]
-    if rename:
-        df = df.rename(columns=rename)
+    global _DB_PATH
+    _DB_PATH = Path(path)
+
+
+def _read_table(table: str, columns: list[str] | None = None) -> pd.DataFrame:
+    """
+    Pull a table (or subset of columns) from SQLite into a pandas DataFrame.
+    """
+    projection = ", ".join(columns) if columns else "*"
+    query = f"SELECT {projection} FROM {table}"
+    with sqlite3.connect(_DB_PATH) as conn:
+        df = pd.read_sql_query(query, conn)
     return df.sort_values("year").reset_index(drop=True)
 
 
-def load_main(path: str) -> pd.DataFrame:
+def load_main() -> pd.DataFrame:
     """
-    Pull the primary temperature and anthropogenic forcing dataset into memory.
+    Load the temperature and anthropogenic forcing measurements.
     """
-    return load_csv(path)
+    return _read_table("temperature")
 
 
-def load_co2(path: str) -> pd.DataFrame:
+def load_co2() -> pd.DataFrame:
     """
-    Read atmospheric CO₂ concentration records and normalize their column names.
+    Load atmospheric CO₂ concentration data (already labeled co2_ppm).
     """
-    return load_csv(path, columns=["year", "ppm"], rename={"ppm": "co2_ppm"})
+    return _read_table("co2_concentration", columns=["year", "co2_ppm"])
 
 
 def merge_datasets(main_df: pd.DataFrame, co2_df: pd.DataFrame) -> pd.DataFrame:
