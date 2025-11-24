@@ -6,7 +6,13 @@ Driver script that loads historical climate data, trains the hybrid
 polynomial + XGBoost pipeline, and prints future temperature projections.
 """
 
-from backend.utils.data_loader import load_main, load_co2, merge_datasets, split_data
+from backend.utils.data_loader import (
+    load_main,
+    load_co2,
+    merge_datasets,
+    split_data,
+    save_predictions,
+)
 from backend.model.temprature_model import (
     train_poly_model,
     train_xgb_residual,
@@ -31,9 +37,12 @@ if __name__ == "__main__":
     xgb = train_xgb_residual(train, poly)
 
     # Generate anchored projections for the coming decades
-    future_years, co2_future, poly_pred, predict, anchored = predict_future(
+    future_years, co2_future, poly_pred, hybrid_pred, anchored = predict_future(
         poly, xgb, data, start=2025, end=2050
     )
+
+    # Persist the latest projection run so other components can query it
+    save_predictions(future_years, anchored)
 
     # Present the final deterministic forecast in the console
     print("\nFuture Predictions")

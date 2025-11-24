@@ -62,3 +62,26 @@ def split_data(df: pd.DataFrame):
     val = df[(df["year"] >= 2006) & (df["year"] <= 2015)].copy()
     test = df[df["year"] >= 2016].copy()
     return train, val, test
+
+
+def save_predictions(years, anchored_pred):
+    """
+    Persist future forecast results so downstream services can query them.
+    """
+    df = pd.DataFrame(
+        {
+            "year": years,
+            "prediction": anchored_pred,
+        }
+    )
+
+    with sqlite3.connect(_DB_PATH) as conn:
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS future_predictions (
+                year INTEGER PRIMARY KEY,
+                prediction REAL
+            )
+            """
+        )
+        df.to_sql("future_predictions", conn, if_exists="replace", index=False)
