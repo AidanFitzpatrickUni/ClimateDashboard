@@ -57,7 +57,7 @@ def merge_datasets(main_df: pd.DataFrame, co2_df: pd.DataFrame) -> pd.DataFrame:
     Join the temperature and CO₂ tables while computing logarithmic forcing proxies.
     """
     df = main_df.merge(co2_df, on="year", how="left")
-    df["ln_co2_ratio"] = np.log(df["co2_ppm"] / 278.0)  # Add forcing proxy
+    df["ln_co2_ratio"] = np.log(df["co2_ppm"] / 278.0)  # Approximate radiative forcing
     return df
 
 
@@ -65,6 +65,7 @@ def merge_with_sea_level(temp_df: pd.DataFrame, sea_df: pd.DataFrame) -> pd.Data
     """
     Merge the temperature dataset with sea-level observations.
     """
+    # Inner join keeps rows where both temp and sea-level readings exist
     return temp_df.merge(sea_df, on="year", how="inner")
 
 

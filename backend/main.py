@@ -32,7 +32,7 @@ if __name__ == "__main__":
     # Ingest historical temperature and CO₂ observations directly from SQLite
     main_df = load_main()
     co2_df = load_co2()
-    data = merge_datasets(main_df, co2_df)
+    data = merge_datasets(main_df, co2_df)  # Supplies ln(CO₂) forcing proxy
 
     # Reserve earlier years for training and keep recent periods for holdout checks
     train, val, test = split_data(data)

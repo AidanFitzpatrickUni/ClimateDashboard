@@ -49,6 +49,7 @@ def build_database(db_path: Path | None = None) -> Path:
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_co2_year ON co2_concentration(year)"
         )
+        # Indices keep join/pivot queries fast when sampling long histories
         conn.execute("CREATE INDEX IF NOT EXISTS idx_sea_level_year ON sea_level(year)")
     finally:
         conn.commit()

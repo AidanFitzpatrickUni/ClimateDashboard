@@ -10,7 +10,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures
 from xgboost import XGBRegressor
 
-_REF_YEAR = 2000
+_REF_YEAR = 2000  # Maintain feature centering parity with temperature model
 
 
 def train_sea_poly_model(train_df: pd.DataFrame, degree: int = 2, alpha: float = 0.1):
@@ -25,6 +25,7 @@ def train_sea_poly_model(train_df: pd.DataFrame, degree: int = 2, alpha: float =
         Ridge(alpha=alpha),
     )
 
+    # Emphasize recent acceleration to better match current trajectory
     weights = np.where(train_df["year"] >= 1990, 3.0, 1.0)
     model.fit(X, y, ridge__sample_weight=weights)
     return model
@@ -53,6 +54,7 @@ def train_sea_xgb_residual(train_df: pd.DataFrame, poly_model):
     residuals = train_df["gmsl"].values - baseline
 
     X = _make_features(train_df)
+    # Slightly shallower trees avoid overfitting to short temperature swings
     model = XGBRegressor(
         n_estimators=1500,
         learning_rate=0.02,
