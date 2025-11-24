@@ -23,6 +23,7 @@ def build_database(db_path: Path | None = None) -> Path:
 
     temp_path = data_dir / "temp.csv"
     co2_path = data_dir / "co2_concentration.csv"
+    sea_path = data_dir / "ClimateChangeTracker.org_Data_Download_Chart_4_8.csv"
 
     db_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -39,12 +40,16 @@ def build_database(db_path: Path | None = None) -> Path:
         )
         co2_df.to_sql("co2_concentration", conn, if_exists="replace", index=False)
 
+        sea_df = pd.read_csv(sea_path, comment="#")[["year", "gmsl"]]
+        sea_df.to_sql("sea_level", conn, if_exists="replace", index=False)
+
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_temperature_year ON temperature(year)"
         )
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_co2_year ON co2_concentration(year)"
         )
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_sea_level_year ON sea_level(year)")
     finally:
         conn.commit()
         conn.close()

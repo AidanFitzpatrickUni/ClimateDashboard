@@ -45,6 +45,13 @@ def load_co2() -> pd.DataFrame:
     return _read_table("co2_concentration", columns=["year", "co2_ppm"])
 
 
+def load_sea_level() -> pd.DataFrame:
+    """
+    Load the recorded global mean sea level (gmsl) measurements.
+    """
+    return _read_table("sea_level", columns=["year", "gmsl"])
+
+
 def merge_datasets(main_df: pd.DataFrame, co2_df: pd.DataFrame) -> pd.DataFrame:
     """
     Join the temperature and CO₂ tables while computing logarithmic forcing proxies.
@@ -52,6 +59,13 @@ def merge_datasets(main_df: pd.DataFrame, co2_df: pd.DataFrame) -> pd.DataFrame:
     df = main_df.merge(co2_df, on="year", how="left")
     df["ln_co2_ratio"] = np.log(df["co2_ppm"] / 278.0)  # Add forcing proxy
     return df
+
+
+def merge_with_sea_level(temp_df: pd.DataFrame, sea_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Merge the temperature dataset with sea-level observations.
+    """
+    return temp_df.merge(sea_df, on="year", how="inner")
 
 
 def split_data(df: pd.DataFrame):
@@ -64,7 +78,7 @@ def split_data(df: pd.DataFrame):
     return train, val, test
 
 
-def save_predictions(years, anchored_pred):
+def save_predictions(years, anchored_pred, table_name: str = "future_predictions"):
     """
     Persist future forecast results so downstream services can query them.
     """
@@ -77,11 +91,11 @@ def save_predictions(years, anchored_pred):
 
     with sqlite3.connect(_DB_PATH) as conn:
         conn.execute(
-            """
-            CREATE TABLE IF NOT EXISTS future_predictions (
+            f"""
+            CREATE TABLE IF NOT EXISTS {table_name} (
                 year INTEGER PRIMARY KEY,
                 prediction REAL
             )
             """
         )
-        df.to_sql("future_predictions", conn, if_exists="replace", index=False)
+        df.to_sql(table_name, conn, if_exists="replace", index=False)
