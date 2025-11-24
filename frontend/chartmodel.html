@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Chart grid page for visualizing model outputs with Chart.js -->
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="assets\css\index.css">
   </head>
   <body>
+    <!-- Global navigation reused across static pages -->
     <header>
       <div class="header">
           <img src="assets\img\logo.png" alt="logo" class="logo" style="width:50px;height:50px;"/>
@@ -22,6 +24,7 @@
       </div> 
     </header>
 
+    <!-- Responsive grid that hosts placeholder canvases -->
     <div class="chart-grid">
       <div class="chart-container"><canvas id="chart1"></canvas></div>
       <div class="chart-container"><canvas id="chart2"></canvas></div>
@@ -34,12 +37,14 @@
       <div class="chart-container"><canvas id="chart9"></canvas></div>
     </div>
 
+    <!-- Consistent footer across the site -->
     <footer class="footer">
       <h1>© 2025 Climate Change Dashboard</h1>
     </footer>
   </body>
 
   <script>
+    // Helper to instantiate a chart with shared styling defaults
     function createChart(canvasId, chartType, chartData, label) {
       new Chart(document.getElementById(canvasId), {
         type: chartType,
@@ -61,7 +66,7 @@
       });
     }
 
-    // PLACEHOLDERS, REPLACE WITH ML MODELS
+    // Temporary sample data until real ML outputs are wired in
     const datasets = [
       { labels: ['Value 1', 'Value 2', 'Value 3'], values: [10, 20, 30] },
       { labels: ['Value 1', 'Value 2', 'Value 3'], values: [5, 25, 15] },
@@ -75,6 +80,7 @@
     ];
 
 
+    // Populate each canvas with the mock data set and a line chart
     for (let i = 0; i < 9; i++) {
       const data = datasets[i % datasets.length];
       createChart(`chart${i+1}`, 'line', data, `Model ${i+1}`);

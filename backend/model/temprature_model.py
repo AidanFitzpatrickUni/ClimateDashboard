@@ -17,9 +17,11 @@ def train_poly_model(train_data: pd.DataFrame, degree: int = 2, alpha: float = 0
     """
     Train a polynomial regression model mapping year → observed warming.
     """
+    # Use the raw year as the single explanatory variable for the trend component
     X = train_data[["year"]]
     y = train_data["observed_c"].astype(float)
 
+    # Pipeline expands the features and fits a ridge regression for stability
     model = make_pipeline(
         PolynomialFeatures(degree=degree, include_bias=False),
         Ridge(alpha=alpha)
@@ -97,13 +99,15 @@ def _calculate_metrics(y, yhat):
     return mse, rmse, mae, r2, resids
 
 
-def evaluate_model(poly_model, xgb_model, df: pd.DataFrame, label: str):
+def evaluate_model(poly_model, xgb_model, df: pd.DataFrame, label: str, verbose: bool = True):
     """
     Evaluate model performance.
     """
+    # Obtain the deterministic warming curve for the selected period
     X_poly = df[["year"]]
     trend_pred = poly_model.predict(X_poly)
 
+    # Feed engineered features to the residual model and combine the signals
     X_res = _make_features(df)
     resid_pred = xgb_model.predict(X_res)
     hybrid = trend_pred + resid_pred
@@ -112,17 +116,19 @@ def evaluate_model(poly_model, xgb_model, df: pd.DataFrame, label: str):
 
     # --- Trend-only evaluation ---
     mse, rmse, mae, r2, resids = _calculate_metrics(y_true, trend_pred)
-    print(f"\n=== {label} (Trend-only) ===")
-    print(f"MSE: {mse:.4f}  RMSE: {rmse:.4f}  MAE: {mae:.4f}  R²: {r2:.4f}")
-    print(f"Residuals: mean={resids.mean():.4f}, std={resids.std():.4f}, "
-          f"min={resids.min():.4f}, max={resids.max():.4f}")
+    if verbose:
+        print(f"\n=== {label} (Trend-only) ===")
+        print(f"MSE: {mse:.4f}  RMSE: {rmse:.4f}  MAE: {mae:.4f}  R²: {r2:.4f}")
+        print(f"Residuals: mean={resids.mean():.4f}, std={resids.std():.4f}, "
+              f"min={resids.min():.4f}, max={resids.max():.4f}")
 
     # --- Hybrid evaluation ---
     mse, rmse, mae, r2, resids = _calculate_metrics(y_true, hybrid)
-    print(f"\n=== {label} (Hybrid) ===")
-    print(f"MSE: {mse:.4f}  RMSE: {rmse:.4f}  MAE: {mae:.4f}  R²: {r2:.4f}")
-    print(f"Residuals: mean={resids.mean():.4f}, std={resids.std():.4f}, "
-          f"min={resids.min():.4f}, max={resids.max():.4f}")
+    if verbose:
+        print(f"\n=== {label} (Hybrid) ===")
+        print(f"MSE: {mse:.4f}  RMSE: {rmse:.4f}  MAE: {mae:.4f}  R²: {r2:.4f}")
+        print(f"Residuals: mean={resids.mean():.4f}, std={resids.std():.4f}, "
+              f"min={resids.min():.4f}, max={resids.max():.4f}")
 
     return trend_pred, hybrid
 
@@ -131,7 +137,8 @@ def predict_future(poly_model, xgb_model, df: pd.DataFrame, start: int, end: int
     Predict future global temperature anomalies (hybrid model).
     """
     years = np.arange(start, end + 1)
-    poly_pred = poly_model.predict(years.reshape(-1, 1))
+    years_df = pd.DataFrame({"year": years})
+    poly_pred = poly_model.predict(years_df)
 
     # Estimate future CO₂ trend using exponential fit to recent history
     co2_hist = df[["year", "co2_ppm"]].dropna()
@@ -140,7 +147,7 @@ def predict_future(poly_model, xgb_model, df: pd.DataFrame, start: int, end: int
     co2_future = co2_hist["co2_ppm"].iloc[-1] * np.exp(slope * (years - co2_hist["year"].iloc[-1]))
     ln_co2_ratio = np.log(co2_future / 278.0)
 
-    # Extrapolate anthropogenic components
+    # Extrapolate anthropogenic components with a gentle upward ramp
     future_df = pd.DataFrame({
         "year": years,
         "anthropogenic_c": np.linspace(df["anthropogenic_c"].iloc[-15:].mean(),
@@ -158,8 +165,9 @@ def predict_future(poly_model, xgb_model, df: pd.DataFrame, start: int, end: int
 
     # Anchor to last observed data point
     last_obs = df.iloc[-1]["observed_c"]
+    last_year_df = pd.DataFrame({"year": [df.iloc[-1]["year"]]})
     last_model = (
-        poly_model.predict([[df.iloc[-1]["year"]]]) +
+        poly_model.predict(last_year_df) +
         xgb_model.predict(_make_features(df.iloc[[-1]]))
     )[0]
     offset = last_obs - last_model

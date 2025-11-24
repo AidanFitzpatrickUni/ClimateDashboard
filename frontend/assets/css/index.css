@@ -1,4 +1,5 @@
-/* Base */
+/* Global styles for the Climate Dashboard web pages */
+/* Base resets ensure consistent sizing */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +12,7 @@ body {
   background: #0D0221;
 }
 
-/* Header */
+/* Header layout controls spacing for logo/nav cluster */
 .header {
   display: flex;
   justify-content: space-between;
@@ -28,7 +29,7 @@ header .title {
   color: #f0f0f0;
 }
 
-/* Navbar */
+/* Horizontal navigation pills */
 .navbar {
   margin-left: 20px;
 }
@@ -61,7 +62,7 @@ header .title {
   background: #B1740F;
 }
 
-/* Welcome Section */
+/* Welcome hero copy spacing */
 .welcome {
   padding: 20px 40px;
   color: white;
@@ -71,7 +72,7 @@ header .title {
   margin-bottom: 10px;
 }
 
-/* Content Layout */
+/* Main homepage grid that splits news/stat sections */
 .content {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -85,7 +86,7 @@ header .title {
   gap: 20px;
 }
 
-/* Info Boxes */
+/* Placeholder cards until real data populates */
 .info-box {
   background: #0F084B;
   border: 2px solid #26408B;
@@ -107,7 +108,7 @@ header .title {
   color: #f0f0f0;
 }
 
-/* Footer */
+/* Footer styling matches header palette */
 .footer {
   border-top: 2px solid #26408B;
   background: #0F084B;
@@ -121,7 +122,7 @@ header .title {
   color: #f0f0f0;
 }
 
-/* Main Section Buttons */
+/* Admin page main tag uses centered block layout */
 main {
   padding: 40px;
   text-align: center;
@@ -158,7 +159,7 @@ button:hover,
   gap: 25px;
 }
 
-/* Upload Box */
+/* Drag-and-drop zone for data uploads */
 .upload-box {
   width: 250px;
   height: 180px;
@@ -170,7 +171,7 @@ button:hover,
   border-radius: 6px;
 }
 
-/* Charts */
+/* Chart grid used on the visualization page */
 .chart-grid {
   margin-top: 60px;
   display: grid;
