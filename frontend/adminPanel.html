@@ -25,19 +25,25 @@
 
 		<main>
 			<!-- Button pad reserved for admin actions -->
-			<div class="buttons"> <!-- Add functionality later-->
-				<button>Read Database</button>
-				<button>Site Details</button>
-				<button>Database Connection<br>(Success/Fail)<!-- Change it later--></button>
-				<button>API Details</button>
+			<div class="buttons">
+				<button onclick="readDatabase()">Read Database</button>
+				<button onclick="showSiteDetails()">Site Details</button>
+				<button onclick="checkDatabaseConnection()">Database Connection<br>(Success/Fail)</button>
+				<button onclick="showApiDetails()">API Details</button>
+			</div>
+
+			<!-- Result display area -->
+			<div id="result-box" class="result-box">
+				<h3 id="result-title"></h3>
+				<div id="result-content"></div>
 			</div>
 
 			<!-- File/drop interaction for uploading new datasets -->
-			<div class="update-section"> <!-- No js, add it later-->
+			<div class="update-section">
 				<button class="update-btn">Update Data</button>
-			<div class="upload-box">
-			<p>Drag & Drop Data</p>
-		</div>
+				<div class="upload-box">
+					<p>Drag & Drop Data</p>
+				</div>
 			</div>
 		</main>
 
@@ -45,5 +51,7 @@
 		<footer class="footer">
 			<h1>© 2025 Climate Change Dashboard</h1>
 		</footer>
+
+		<script src="assets\js\adminPanel.js"></script>
 	</body>
 </html>
