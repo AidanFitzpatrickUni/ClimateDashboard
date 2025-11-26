@@ -16,7 +16,7 @@ CORS(app)  # Enable CORS for frontend requests
 # Database path
 DB_PATH = Path(__file__).resolve().parent / "data" / "climate.db"
 
-# News API configuration (using NewsAPI.org - you'll need a free API key)
+# News API configuration
 NEWS_API_KEY = os.environ.get('NEWS_API_KEY', '7f876b4083d6424a8a229aa66e0d78d4')
 NEWS_API_URL = 'https://newsapi.org/v2/everything'
 
