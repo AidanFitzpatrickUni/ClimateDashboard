@@ -41,49 +41,7 @@
     <footer class="footer">
       <h1>© 2025 Climate Change Dashboard</h1>
     </footer>
+
+    <script src="assets\js\chartmodel.js"></script>
   </body>
-
-  <script>
-    // Helper to instantiate a chart with shared styling defaults
-    function createChart(canvasId, chartType, chartData, label) {
-      new Chart(document.getElementById(canvasId), {
-        type: chartType,
-        data: {
-          labels: chartData.labels,
-          datasets: [{
-            label: label,
-            data: chartData.values,
-            backgroundColor: 'rgba(75, 192, 192, 0.5)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: true } },
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    // Temporary sample data until real ML outputs are wired in
-    const datasets = [
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [10, 20, 30] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [5, 25, 15] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [0, 100, 150] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [3, 4, 4] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [0, 1, 0] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [35, 45, 56] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [2, 5, 9] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [60, 123, 167] },
-      { labels: ['Value 1', 'Value 2', 'Value 3'], values: [15, 16, 12] },
-    ];
-
-
-    // Populate each canvas with the mock data set and a line chart
-    for (let i = 0; i < 9; i++) {
-      const data = datasets[i % datasets.length];
-      createChart(`chart${i+1}`, 'line', data, `Model ${i+1}`);
-    }
-  </script>
 </html>
