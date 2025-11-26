@@ -19,6 +19,7 @@ DB_PATH = Path(__file__).resolve().parent / "data" / "climate.db"
 # News API configuration
 NEWS_API_KEY = os.environ.get('NEWS_API_KEY', '7f876b4083d6424a8a229aa66e0d78d4')
 NEWS_API_URL = 'https://newsapi.org/v2/everything'
+NEWS_QUERY = 'climate change OR global warming OR sea level rise OR carbon emissions OR renewable energy'
 
 @app.route('/')
 def index():
@@ -127,9 +128,9 @@ def get_news():
         # Calculate date from 30 days ago for recent articles
         from_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
         
-        # Query parameters for NewsAPI
+        # Query parameters for NewsAPI - filtered to climate change topics only
         params = {
-            'q': 'global warming OR climate change OR sea level rise',
+            'q': NEWS_QUERY,
             'language': 'en',
             'sortBy': 'publishedAt',
             'from': from_date,
@@ -293,7 +294,7 @@ def api_details():
         news_api_message = ''
         try:
             test_params = {
-                'q': 'climate',
+                'q': NEWS_QUERY,
                 'language': 'en',
                 'pageSize': 1,
                 'apiKey': NEWS_API_KEY
